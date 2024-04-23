@@ -4,8 +4,6 @@ This is the tool for our PLDI 2024 paper "*Boosting Compiler Testing by Injectin
 
 **Creal** is an automated program generator for C. Given a valid C program as the seed, Creal can inject new functions into it and produce new valid programs. By default, Creal uses [Csmith](https://github.com/csmith-project/csmith) to produce seed programs.
 
-🌟Creal🌟 is an automated UB program genertor for C. Given a valid C program, UBGen can mutate it to generate programs containing undefined behaviors. For each of the generated UB program, it only contains one kind of undefined behavior at one program location.
-
 ## Structure of the project
 
 ```
