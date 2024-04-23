@@ -1,0 +1,4 @@
+add_executable(functionextractor FunctionExtract.cpp)
+target_link_libraries(functionextractor PUBLIC FunctionExtractorLib)
+install(TARGETS functionextractor DESTINATION bin)
+
