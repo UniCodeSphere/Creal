@@ -1,6 +1,6 @@
 # Creal
 
-This is the tool for our PLDI 2024 paper "*Boosting Compiler Testing by Injecting Real-World Code*".
+This is the tool for our PLDI 2024 paper "*Boosting Compiler Testing by Injecting Real-World Code*". The code and data is also available in our [artifact](https://doi.org/10.5281/zenodo.10951313).
 
 **Creal** is an automated program generator for C. Given a valid C program as the seed, Creal can inject new functions into it and produce new valid programs. By default, Creal uses [Csmith](https://github.com/csmith-project/csmith) to produce seed programs.
 
