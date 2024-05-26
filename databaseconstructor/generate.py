@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, argparse, json
+import os, argparse, json, warnings
 from pathlib import Path
 from tqdm import tqdm
 import multiprocessing as mp
@@ -18,6 +18,7 @@ def generate_io(input_func: Function)->Function:
     # remove inline keyword in input_func to avoid undefined reference to non-static inlined function
     if 'inline ' in input_func.function_body and 'static' not in input_func.function_body:
         input_func.function_body = input_func.function_body.replace('inline ', ' ')
+
     iogenerator = IOGenerator()
     io_list = []
     num_generated = 0
@@ -70,6 +71,10 @@ if __name__=='__main__':
         with open(args.DST, "w") as f:
             json.dump(new_functiondb.to_json(), f)
         exit(0)
+
+    # typesanitizer is used in IOGenerator.py
+    if which('typesanitizer') is None:
+        warnings.warn("The compiler `typesanitizer` is not found in your path and thus possible misaligned types could happen in programs.")
 
     cpu_count = mp.cpu_count()
     cpu_use = cpu_count if args.CPU == -1 else min(cpu_count, args.CPU)

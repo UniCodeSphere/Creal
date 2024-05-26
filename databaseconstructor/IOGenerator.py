@@ -46,12 +46,13 @@ class IOGenerator():
         self.sanitizer = Sanitizer(use_ub_address_sanitizer=True, use_memory_sanitizer=True, use_ccomp_if_available=True)
 
         if which("typesanitizer") is None:
-            raise ValueError("The compiler `typesanitizer` is not found in your path.")
-        self.typesanitizer = CompilationSetting(
-            compiler=CompilerExe(CompilerProject.LLVM, Path(which("typesanitizer")), "main"),
-            opt_level=OptLevel.from_str("O0"),
-            flags=("-march=native", "-fsanitize=type",),
-        )
+            self.typesanitizer = None
+        else:
+            self.typesanitizer = CompilationSetting(
+                compiler=CompilerExe(CompilerProject.LLVM, Path(which("typesanitizer")), "main"),
+                opt_level=OptLevel.from_str("O0"),
+                flags=("-march=native", "-fsanitize=type",),
+            )
 
     def generate(self, input_func:Function, max_try_time:int=5, debug:bool=False) -> tuple[Optional[list], Optional[Function]]:
         """Generate a valid input for the input function and return its IO pair
@@ -121,6 +122,9 @@ class IOGenerator():
     def check_type_sanitizer(self, program:SourceProgram) -> bool:
         """Validate if the program violates the strict aliasing rule
         """
+        # when typesanitizer is not available
+        if self.typesanitizer is None:
+            return True
         try:
             comp_out = self.typesanitizer.compile_program(program, ExeCompilationOutput(), timeout=5)
         except:
