@@ -95,6 +95,14 @@ All the 50K functions used by ``creal.py`` and ``generate_mutants.py`` are avail
 
 You can generate a new function database as follows:
 
+**Step 0**, build the function extractor
+
+```shell
+  $ cd ./databaseconstructor/functionextractor/
+  $ mkdir build && cd build
+  $ cmake .. && make
+```
+
 **Step 1**, prepare a C/C++ project and extract all valid functions from it by running:
 
 ```shell
